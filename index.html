@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="hr">
+
+<head>
+
+	<meta charset="utf-8" />
+    <link rel="stylesheet" href="css/reset.css" /> 
+	<link rel="stylesheet" href="css/style.css" />
+	<meta name="robots" content="index,follow" />
+	<meta name="Author" content="Gospodnetic-Tilic" />
+	<title lang="hr">Drustvene Mreze</title>
+
+
+</head>
+
+<body>
+    
+    <div class="container">
+        <header>
+            <h1 class="naslovAp">Aplikacija mwahaha</h1>
+        </header>
+        <div class="main">
+            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+            </fb:login-button>
+
+            <div id="status">
+            </div>
+
+            <input class="posaljiMe" type="submit">
+            <div
+              class="fb-like"
+              data-share="true"
+              data-width="450"
+              data-show-faces="true">
+            </div>
+            <button name="my_full_name" onclick="ShowMyName()" value="My Name" />
+        </div>
+    </div>
+    
+</body>
+</html>

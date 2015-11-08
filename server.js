@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-
+var fbAppData = {test: "ovo je test"};
 app.use(express.static('public'));
 
 app.get('/', function(req,res){

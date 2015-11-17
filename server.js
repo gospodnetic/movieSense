@@ -3,16 +3,17 @@ var app = express();
 app.use(express.static('public'));
 var bodyParser = require('body-parser');
 
+// parsers for incoming http requests
+var urlencodedParser = bodyParser.urlencoded({extended: false});
+var jsonParser = bodyParser.json();
+
 app.get("/", function(req,res){
 	res.sendFile(__dirname + '/' + 'index.html');
 });
 
-app.use(bodyParser.json());
-
-app.post("/data", function(req,res){
+app.post("/data", jsonParser, function(req,res){
 	console.log(req.body);
-	console.log(req.body.friends.data);
-	res.status(305).end();
+	res.status(200).end();
 });
 
 var server = app.listen(8081, function(){

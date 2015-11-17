@@ -72,11 +72,13 @@ window.fbAsyncInit = function() {
 // successful.  See statusChangeCallback() for when this call is made.
 function movieSenseAPI() {
 	console.log('Welcome!  Fetching your information.... ');
-	FB.api('/me?fields=id,name,email, gender, picture, friends', function(response) {
+	FB.api('/me?fields=id,name,email, gender, picture, likes', function(response) {
 		console.log('Successful login for: ' + response.name);
 		saveData(response);
 	});
 }
+
+
 
 
 

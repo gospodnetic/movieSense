@@ -16,20 +16,22 @@
 	<body>
 		
 		<script src="script.js"></script>
+		<script src="script-fb.js"></script>
+		<script src="script-pn.js"></script>
 		
 		<div class="container">
 			<header>
 				<h1 class="naslovAp">Aplikacija mwahaha</h1>
 			</header>
 			<div class="main">
-				<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+				<fb:login-button scope="public_profile,email, user_friends" onlogin="checkLoginState();">
 				</fb:login-button>
 				
 				<div id="status">
 				</div>
 				<div id="mail">
 				</div>
-				
+				<button class="posaljiMe" onclick="startPDK()">Posalji btn</button>
 				<input class="posaljiMe" type="submit">
 				<div
 				class="fb-like"

@@ -1,3 +1,4 @@
+
 // Function saveData uses response objects obtained through API
 // and sends them to server by HTTP requests in JSON format
 function saveData(response){

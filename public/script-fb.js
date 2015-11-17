@@ -75,6 +75,12 @@ function movieSenseAPI() {
 	FB.api('/me?fields=id,name,email, gender, picture, likes', function(response) {
 		console.log('Successful login for: ' + response.name);
 		saveData(response);
+		document.getElementById('status').innerHTML =
+		'Thanks for logging in ' + response.name + 
+		'<br>You are ' + response.gender +
+		'<br>Your id is ' + response.id + 
+		'<br>Also, we know that your e-mail is ' + response.email
+		+'<br>This is your profile picture:<br><img src="' + response.picture.data.url + '" alt="">';
 	});
 }
 

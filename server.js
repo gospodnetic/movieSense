@@ -17,13 +17,13 @@ app.post("/data", jsonParser, function(req,res){
 	res.status(200).end();
 });
 
-app.post("/process_post", urlencodedParser , function(req,res){
+app.post("/process_post", jsonParser , function(req,res){
 	
 	console.log("stigao sam");
-	console.log("Ime trazenog filma je " + req.body.movie_name);
-	
-	searchOMDB(req.body.movie_name);
-	res.sendFile(__dirname + '/' + 'index.html');
+	console.log("Ime trazenog filma je " + req.body.name);
+	searchOMDB(req.body.name);
+	// res.sendFile(__dirname + '/' + 'index.html');
+	res.end();
 });
 
 function searchOMDB(movie_name){
@@ -37,6 +37,8 @@ function searchOMDB(movie_name){
 	
 	console.log(options);
 	
+	var result;
+	
 	callback = function(response) {
 		var str = '';
 		
@@ -48,10 +50,14 @@ function searchOMDB(movie_name){
 		//the whole response has been recieved, so we just print it out here
 		response.on('end', function () {
 			console.log(str);
+			result = str;
 		});
+		
+		return str;
+		
 	}
-	
 	http.request(options, callback).end();
+	
 }
 
 var server = app.listen(8081, function(){

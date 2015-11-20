@@ -23,10 +23,10 @@ function saveData(response){
 	xhr.send(test);
 }
 
-function submitMovie(){
+function submitMovie() {
 	var movie = {
-			name: document.getElementById("movie-name").value
-		}
+		name: document.getElementById("movie-name").value
+	}
 	
 	var eventHandler = function () {
 		console.log('eventHandler() -', Array.prototype.slice.call(arguments));
@@ -38,6 +38,12 @@ function submitMovie(){
 	xhr.addEventListener("error", eventHandler.bind(null, 'onError'));
 	xhr.addEventListener("abort", eventHandler.bind(null, 'onAbort'));
 	xhr.addEventListener("timeout", eventHandler.bind(null, 'onTimeout'));
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			searchResult = xhr.responseText;
+			console.log(JSON.parse(searchResult));
+		}
+	}
 	xhr.open("POST", "/process_post");
 	xhr.timeout = 5000;
 	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');

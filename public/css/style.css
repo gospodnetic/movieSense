@@ -88,3 +88,12 @@ header p{
 	float:left;
 	/* margin-top: 8px; */
 }
+
+#movie-data p, #movie-data h2{
+	margin-bottom: 13px;
+	padding: 5px;
+}
+
+#movie-data p:nth-child(even){
+	background-color: beige;
+}

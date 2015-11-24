@@ -42,6 +42,7 @@ function submitMovie() {
 		if (xhr.readyState == 4) {
 			searchResult = xhr.responseText;
 			console.log(JSON.parse(searchResult));
+			writeMovieResults(JSON.parse(searchResult));
 		}
 	}
 	xhr.open("POST", "/process_post");
@@ -52,6 +53,30 @@ function submitMovie() {
 	// send the collected data as JSON
 	xhr.send(JSON.stringify(movie));
 };
+
+function writeMovieResults(result){
+	// document.getElementById('movie-data').innerHTML = result;
+	document.getElementById('movie-data').innerHTML = '<h2>OMDB results</h2>' + 
+		'<p>Title:</p>' + 
+		'<p>' + result.omdbResult.Title + '</p>' +
+		'<p>Year:</p>' +
+		'<p>' + result.omdbResult.Year + '</p>' +
+		'<p>Runtime:</p>' +
+		'<p>' + result.omdbResult.Runtime + '</p>' +
+		'<p>Genre:</p>' +
+		'<p>' + result.omdbResult.Genre + '</p>' +
+		'<p>Director:</p>' +
+		'<p>' + result.omdbResult.Director + '</p>' +
+		'<p>Writer:</p>' +
+		'<p>' + result.omdbResult.Writer + '</p>' +
+		'<p>Actors:</p>' +
+		'<p>' + result.omdbResult.Actors + '</p>' +
+		'<p>Plot:</p>' +
+		'<p>' + result.omdbResult.Plot + '</p>' +
+		'<h2>Trailer</h2>' +
+		result.trailerAddictResult.trailers.trailer[0].embed;
+	// console.log(result.trailerAddictResult.trailers.trailer[0].cached);
+}
 
 
 

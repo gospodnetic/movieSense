@@ -4,6 +4,10 @@ app.use(express.static('public'));
 var bodyParser = require('body-parser');
 var http = require('http');
 var parseString = require('xml2js').parseString;
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+var ObjectId = require('mongodb').ObjectID;
+var url = 'mongodb://localhost:27017/movieSense';
 
 // parsers for incoming http requests
 var urlencodedParser = bodyParser.urlencoded({extended: false});
@@ -15,6 +19,12 @@ app.get("/", function(req,res){
 
 app.post("/data", jsonParser, function (req, res) {
 	// console.log(req.body);
+	MongoClient.connect(url, function(err, db){
+		assert.equal(null, err);
+		storeFBdata(db, req, function() {
+			db.close();
+		});
+	});
 	res.status(200).end();
 });
 
@@ -22,12 +32,12 @@ app.post("/process_post", jsonParser, function (req, res) {
 	
 	console.log("stigao sam");
 	console.log("Ime trazenog filma je " + req.body.name);
-
+	
 	var trailerAddictResult;
 	var omdbResult;
 	
 	var searchCompletedCount = 0;
-
+	
 	searchOMDB(req.body.name, function (result) {
 		omdbResult = JSON.parse(result);
 		console.log("OMDB:\n" + omdbResult);
@@ -42,30 +52,32 @@ app.post("/process_post", jsonParser, function (req, res) {
 		console.log("Trailer Addict:\n", trailerAddictResult);
 		searchCompleted();
 	});
-
+	
 	function searchCompleted() {
 		console.log('zzz: search completed ' + (searchCompletedCount + 1));
 		if (++searchCompletedCount < 2)
-			return;
+		return;
 		var data = {
 			trailerAddictResult: trailerAddictResult,
 			omdbResult: omdbResult
 		};
 		// console.log('zzz: sending response:', data);
 		res
-			.status(200)
-			.type('json')
-			.json(data)
-			.end()
+		.status(200)
+		.type('json')
+		.json(data)
+		.end()
 		;
 	}
 });
+
+//movie APIs functions
 
 function search(options, callback) {
 	console.log(options);
 	http.request(options, function (response) {
 		var result = '';
-	
+		
 		//another chunk of data has been recieved, so append it to `str`
 		response.on('data', function (chunk) {
 			result += chunk;
@@ -95,6 +107,15 @@ function searchTrailerAddict(movie_name, callback) {
 	search(options, callback);
 }
 
+// save Fb login data functions
+
+function storeFBdata(db, data, callback){
+	db.collection('FBProfile').insertOne(data);
+	var collect = db.collection('FBProfile').find();
+	console.log(collect);
+};
+
+// server
 var server = app.listen(8081, function(){
 	var host = server.address().address;
 	var port = server.address().port;

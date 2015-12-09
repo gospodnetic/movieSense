@@ -4,6 +4,7 @@ app.use(express.static('public'));
 var bodyParser = require('body-parser');
 var http = require('http');
 var parseString = require('xml2js').parseString;
+
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
@@ -18,9 +19,15 @@ app.get("/", function(req,res){
 });
 
 app.post("/data", jsonParser, function (req, res) {
-	// console.log(req.body);
+	console.log(req.body.id);
+	console.log(' ');
 	MongoClient.connect(url, function(err, db){
-		assert.equal(null, err);
+		if(err){
+			return console.dir(err);
+		}
+		
+		db.collection('FBprofile').insertOne({"a": "1"});
+		// assert.equal(null, err);
 		storeFBdata(db, req, function() {
 			db.close();
 		});
@@ -110,9 +117,11 @@ function searchTrailerAddict(movie_name, callback) {
 // save Fb login data functions
 
 function storeFBdata(db, data, callback){
-	db.collection('FBProfile').insertOne(data);
-	var collect = db.collection('FBProfile').find();
-	console.log(collect);
+	db.collection('FBprofile').insertOne(data.body, function(err, result) {
+		assert.equal(err, null);
+		console.log("Inserted a document into FBprofile collection.");
+		callback(result);
+	});
 };
 
 // server

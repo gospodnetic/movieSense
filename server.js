@@ -26,11 +26,9 @@ app.post("/data", jsonParser, function (req, res) {
 			return console.dir(err);
 		}
 		
-		db.collection('FBprofile').insertOne({"a": "1"});
+		// db.collection('FBprofile').insertOne({"a": "1"});
 		// assert.equal(null, err);
-		storeFBdata(db, req, function() {
-			db.close();
-		});
+		storeFbData(db, req, function(){});
 	});
 	res.status(200).end();
 });
@@ -114,13 +112,29 @@ function searchTrailerAddict(movie_name, callback) {
 	search(options, callback);
 }
 
-// save Fb login data functions
 
-function storeFBdata(db, data, callback){
-	db.collection('FBprofile').insertOne(data.body, function(err, result) {
-		assert.equal(err, null);
-		console.log("Inserted a document into FBprofile collection.");
-		callback(result);
+// check for existing entry
+function storeFbData(db, data, callback){
+	
+	collection = db.collection('FBprofile');
+	var dataInserted = false;
+	collection.find({"id": data.body.id}).count(function(err, count) {
+		if (count == 0){
+			collection.insertOne(data.body, function(err, result) {
+				assert.equal(err, null);
+				console.log("A document inserted into FBprofile collection.");
+				dataInserted = true;
+				callback(dataInserted);
+				console.log(count);
+				db.close();
+			});
+		}
+		else{
+			console.log("User with the same id already exists in FBprofile database");
+			console.log(count);
+			callback(dataInserted);
+			db.close();
+		}
 	});
 };
 

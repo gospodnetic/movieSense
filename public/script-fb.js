@@ -8,7 +8,9 @@ function statusChangeCallback(response) {
 	// for FB.getLoginStatus().
 	if (response.status === 'connected') {
 		// Logged into your app and Facebook.
-		movieSenseAPI();
+		var accessToken = response.authResponse.accessToken;
+		console.log(accessToken);
+		movieSenseAPI(accessToken);
 		} else if (response.status === 'not_authorized') {
 		// The person is logged into Facebook, but not your app.
 		document.getElementById('status').innerHTML = 'Please log ' +
@@ -70,9 +72,10 @@ window.fbAsyncInit = function() {
 
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
-function movieSenseAPI() {
+function movieSenseAPI(token) {
 	console.log('Welcome!  Fetching your information.... ');
-	FB.api('/me?fields=id,name,email, gender, picture', function(response) {
+	url_req = '/me?fields=id,name,email,gender,picture,movies';
+	FB.api(url_req, function(response) {
 		console.log('Successful login for: ' + response.name);
 		saveData(response);
 		document.getElementById('status').innerHTML =

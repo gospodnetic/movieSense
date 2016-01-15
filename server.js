@@ -25,9 +25,6 @@ app.post("/data", jsonParser, function (req, res) {
 		if(err){
 			return console.dir(err);
 		}
-		
-		// db.collection('FBprofile').insertOne({"a": "1"});
-		// assert.equal(null, err);
 		storeFbData(db, req, function(){});
 	});
 	res.status(200).end();
@@ -35,13 +32,19 @@ app.post("/data", jsonParser, function (req, res) {
 
 app.post("/process_post", jsonParser, function (req, res) {
 	
-	console.log("stigao sam");
 	console.log("Ime trazenog filma je " + req.body.name);
 	
 	var trailerAddictResult;
 	var omdbResult;
+	var likesResult;
 	
 	var searchCompletedCount = 0;
+	
+	// searchMovieInLikes(req.body.name, function(result){
+		// console('trazeni film');
+		// likesResult = result;
+		// searchCompleted();
+	// });
 	
 	searchOMDB(req.body.name, function (result) {
 		omdbResult = JSON.parse(result);
@@ -137,6 +140,30 @@ function storeFbData(db, data, callback){
 		}
 	});
 };
+
+function searchMovieInLikes(name, callback){
+	var movieFound = false;
+	
+	collection = db.collection('FBprofile');
+	collection.find({"id": name}).count(function(err, count) {
+		if (count == 0){
+			collection.insertOne(data.body, function(err, result) {
+				assert.equal(err, null);
+				console.log("Movie not found FBprofile collection.");
+				dataInserted = true;
+				callback(dataInserted);
+				console.log(count);
+				db.close();
+			});
+		}
+		else{
+			console.log("Movie found in FBprofile collection");
+			console.log(count);
+			callback(dataInserted);
+			db.close();
+		}
+	});
+}
 
 // server
 var server = app.listen(8081, function(){

@@ -1,1 +1,0 @@
-C:\MongoDB\Server\3.2\bin\mongod.exe --dbpath C:\Petra\Programiranje\nodejs\movieSense\data

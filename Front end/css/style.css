@@ -1,14 +1,26 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=latin,latin-ext);
 /* Font size */
 
+header .fb-logout{
+	font-size: 13px;
+}
+
+body{
+	font-size: 16px;
+}
+
 header h1, .welcome-message p{
 	font-size: 26px;
 }
 
 /* Font color */
 
-header h1, .welcome-message p{
+body, header h1, .welcome-message p, .welcome-checkbox label{
 	color: #fff;
+}
+
+header .fb-logout{
+	color: #ccc;
 }
 
 /* +++++++++++++++++++++++ */
@@ -58,6 +70,18 @@ header h1{
 	text-align: center;
 }
 
+header .fb-logout{
+	right: 0;
+	top: 0;
+	position: absolute;
+	padding: 10px;
+	text-align: right;
+	text-transform: uppercase;
+	border-style:dotted;
+	border-color: #ccc;
+	border-width: 0 0 2px 2px;
+}
+
 .fb-login{
 	margin: 0 auto;
 	background-image: url(../images/fb-login.png);
@@ -76,4 +100,13 @@ header h1{
 .welcome-message p{
 	text-align: center;
 	margin-top: 60px;
+}
+
+.welcome-checkbox{
+	margin-top: 30px;
+}
+
+.welcome-checkbox label.radio{
+	float: left;
+	clear: left;
 }

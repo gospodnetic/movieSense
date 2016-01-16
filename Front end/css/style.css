@@ -1,0 +1,79 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=latin,latin-ext);
+/* Font size */
+
+header h1, .welcome-message p{
+	font-size: 26px;
+}
+
+/* Font color */
+
+header h1, .welcome-message p{
+	color: #fff;
+}
+
+/* +++++++++++++++++++++++ */
+
+body{
+    position: absolute;
+    min-height: 100%;
+    width: 100%;
+    min-width: 320px;
+    min-width: 660px;
+    /* background-color: beige; */
+	background-image: url(../images/bg.png);
+}
+
+body, input, textarea, a{
+    font-family: 'PT Sans', sans-serif;
+}
+
+a, a:hover{
+    color: inherit;
+    text-decoration: none;
+}
+
+header{
+	background-color: rgba(0,0,0, 0.4);
+	height: 250px;
+	box-shadow: 0 0 30px 0 #ccc;
+	overflow: hidden;
+}
+
+header .wrapper, .main .wrapper{
+	max-width: 900px;
+	margin: 0 auto;
+}
+
+.logo{
+	display: block;
+	background-size: contain;
+	width: 447px;
+	height: 177px;
+	background-repeat: no-repeat;
+	background-image: url(../images/movieSense.png);
+	margin: 30px auto 0 auto;
+}
+
+header h1{
+	text-align: center;
+}
+
+.fb-login{
+	margin: 0 auto;
+	background-image: url(../images/fb-login.png);
+	background-repeat: no-repeat;
+	display: block;
+	width: 400px;
+	height: 162px;
+	margin-top:60px;
+	box-shadow: 0 0px 5px 0px #aaa;
+}
+
+.fb-login:hover{
+	opacity: 0.8;
+}
+
+.welcome-message p{
+	text-align: center;
+	margin-top: 60px;
+}

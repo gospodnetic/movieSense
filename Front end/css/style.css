@@ -9,7 +9,7 @@ body{
 	font-size: 16px;
 }
 
-header h1, .welcome-message p{
+header h1, .welcome-message p, .welcome-checkbox label.radio{
 	font-size: 26px;
 }
 
@@ -103,10 +103,31 @@ header .fb-logout{
 }
 
 .welcome-checkbox{
-	margin-top: 30px;
+	margin: 60px 0 0 30px;
+	max-width: 900px;
 }
 
 .welcome-checkbox label.radio{
 	float: left;
 	clear: left;
+	padding-top: 7px;
 }
+
+.welcome-checkbox input[type="radio"]{
+	display: none;
+}
+
+.welcome-checkbox input[type="radio"] + label.radio{
+    display:inline-block;
+    height:50px;
+    vertical-align:middle;
+	padding-left: 60px;
+    background:url(../images/chk.png) left top no-repeat;
+    cursor:pointer;
+	margin-top: 20px;
+}
+
+.welcome-checkbox input[type="radio"]:checked + label.radio{
+    background:url(../images/chk-2.png) 0px top no-repeat;
+}
+
